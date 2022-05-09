@@ -49,6 +49,11 @@ class Country{
 }
 
 function addNewCountry(name){
-    let newCountry = new Country(name, "name.jpeg");
+    let newCountry = new Country(name, `${name}.jpeg`);
     countries.push(newCountry);
 }
+
+countryNames.foreach(element=> addNewCountry(element));
+
+let image = document.getElementsByClassName("flagImage");
+image.src = "assets/pics/Thailand.jpeg";
