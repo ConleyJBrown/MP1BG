@@ -41,19 +41,28 @@ countryNames = [
 countries = []
 
 class Country{
-    constructor(name, imagesource)
+    constructor(name, imageSource)
     {
         this.name = name;
-        this.imagesource = imagesource;
+        this.imageSource = imageSource;
     }
 }
 
 function addNewCountry(name){
-    let newCountry = new Country(name, `${name}.jpeg`);
+    //console.log(name);
+    let newCountry = new Country(name, `assets/pics/${name}.jpeg`);
+    //console.log(newCountry);
     countries.push(newCountry);
 }
 
-countryNames.foreach(element=> addNewCountry(element));
+countryNames.forEach(element=> addNewCountry(element));
 
-let image = document.getElementsByClassName("flagImage");
-image.src = "assets/pics/Thailand.jpeg";
+console.log(countries);
+
+let randomCountry = countries[Math.floor(Math.random()*countries.length)];
+
+console.log(randomCountry);
+
+
+let image = document.getElementsByClassName("flagImage")[0];
+image.src = randomCountry.imageSource;
