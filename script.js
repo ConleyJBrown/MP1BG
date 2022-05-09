@@ -8,7 +8,7 @@ countryNames = [
     "Burundi", "Cambodia", "Cameroon","Canada", "Cape Verde", 
     "Cayman Islands", "Central African Republic", "Chad", "Chile",
     "China", "Colombia", "Comoros", "Cook Islands", "Costa Rica",
-    "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democractic Republic of the Congo",
+    "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo",
     "Denmark", "Djibouti", "Dominica", "Dominican Republic",
     "East Timor", "Ecuador", "Egypt", "El Salvador", "England",
     "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji",
@@ -66,3 +66,45 @@ console.log(randomCountry);
 
 let image = document.getElementsByClassName("flagImage")[0];
 image.src = randomCountry.imageSource;
+
+let correctAnswer = Math.floor(Math.random()*4+1);
+console.log(correctAnswer);
+
+let possibleAnswers = countryNames;
+for( let i = 0; i < possibleAnswers.length; i++){ 
+    
+    if ( possibleAnswers[i] === randomCountry.name) { 
+
+        possibleAnswers.splice(i, 1); 
+    }
+
+}
+
+
+for(let i = 1; i <=4;  i++)
+{
+    let button = document.getElementById("button"+i);
+    if(i === correctAnswer)
+    {
+        button.textContent = randomCountry.name;
+        button.addEventListener("click", handleCorrectAnswer);
+    }
+    else
+    {
+       let wrongAnswerIndex = Math.floor(Math.random()*countries.length);
+        button.textContent = possibleAnswers[wrongAnswerIndex];
+        possibleAnswers.splice(wrongAnswerIndex,1);
+        button.addEventListener("click", handleIncorrectAnswer);
+
+    }
+}
+
+function handleCorrectAnswer()
+{
+    alert("Correct!");
+}
+
+function handleIncorrectAnswer()
+{
+    alert("Incorrect!");
+}
