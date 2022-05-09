@@ -57,7 +57,11 @@ function addNewCountry(name){
 
 countryNames.forEach(element=> addNewCountry(element));
 
-console.log(countries);
+let result = document.getElementById("whetherCorrect");
+let scoreTable = document.getElementById("yourScore");
+let score = 0;
+let attempts = 0;
+let quit = false;
 
 let randomCountry = countries[Math.floor(Math.random()*countries.length)];
 
@@ -101,10 +105,18 @@ for(let i = 1; i <=4;  i++)
 
 function handleCorrectAnswer()
 {
-    alert("Correct!");
+    //alert("Correct!");
+    result.textContent = "Correct! Great Job!";
+    score++;
+    attempts++;
+    scoreTable.textContent = "Your Score: " + score + "/" + attempts;
 }
 
 function handleIncorrectAnswer()
 {
-    alert("Incorrect!");
+    //alert("Incorrect!");
+    result.textContent = "Incorrect. That was the flag of " + randomCountry.name + ".";
+    attempts++;
+    scoreTable.textContent = "Your Score: " + score + "/" + attempts;
+    
 }
