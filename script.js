@@ -66,6 +66,8 @@ let randomCountry;
 
 let endGameButton = document.getElementById("endGame");
 endGameButton.addEventListener("click", endGame);
+let startOverButton = document.getElementById("startOver");
+startOverButton.addEventListener("click",startOver);
 
 //load the first question when window loads
 window.onload = nextQuestion();
@@ -154,25 +156,16 @@ function handleIncorrectAnswer()
 
 function endGame()
 {
-    endGameButton.textContent = "Play again?";
     result.textContent = "Thanks for playing!";
     scoreTable.textContent = "You final score: " + score + "/" + attempts; 
-    endGameButton.addEventListener("click", startOver);
-    endGameButton.removeEventListener("click", endGame);
-
 }
 
 function startOver()
 {
     result.textContent = "Let's get started!";
-    console.log(result.textContent);
     scoreTable.textContent = "Your Score:  0/0";
-    endGameButton.textContent = "END GAME";
-    endGameButton.addEventListener("click", endGame());
     score = 0;
     attempts = 0;
     countries = countriesUnchanging;
-    endGameButton.removeEventListener("click", startOver);
     nextQuestion();
-
 }
