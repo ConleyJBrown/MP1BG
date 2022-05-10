@@ -1,3 +1,4 @@
+//create an array containing the names of all countries in the game
 countryNames = [
     "Afghanistan", "Albania", "Algeria", "Andorra",
     "Angola", "Antigua and Barbuda", "Argentina", "Armenia",
@@ -38,8 +39,10 @@ countryNames = [
     "Venezuela","Vietnam","Wales","Yemen","Zambia","Zimbabwe"
 ]
 
+//declare a countries array
 countries = []
 
+//define the Country class
 class Country{
     constructor(name, imageSource)
     {
@@ -48,6 +51,7 @@ class Country{
     }
 }
 
+//this function creates a new Country object and pushes it to the array of countries
 function addNewCountry(name){
     //console.log(name);
     let newCountry = new Country(name, `assets/pics/${name}.jpeg`);
@@ -55,9 +59,11 @@ function addNewCountry(name){
     countries.push(newCountry);
 }
 
+//populate the countries array by calling the addNewCountry funciton
 countryNames.forEach(element=> addNewCountry(element));
 countriesUnchanging = [...countries];
 
+//identify certain elements on the document and declare global variables
 let result = document.getElementById("whetherCorrect");
 let scoreTable = document.getElementById("yourScore");
 let score = 0;
@@ -72,6 +78,8 @@ startOverButton.addEventListener("click",startOver);
 //load the first question when window loads
 window.onload = nextQuestion();
 
+
+//function that moves to the "next question"
 function nextQuestion()
 {
     randomCountry = countries.splice(Math.floor(Math.random()*countries.length), 1)[0];
@@ -130,7 +138,7 @@ function nextQuestion()
 
 
 
-
+//listener function for when the correct button is clicked
 function handleCorrectAnswer()
 {
     result.textContent = "Correct! Great Job!";
@@ -141,8 +149,12 @@ function handleCorrectAnswer()
     {
     nextQuestion();
     }
+    else{
+        endGame();
+    }
 }
 
+//listener function for when the incorrect answer is clicked
 function handleIncorrectAnswer()
 {
     result.textContent = "Incorrect. That was the flag of " + randomCountry.name + ".";
@@ -152,14 +164,18 @@ function handleIncorrectAnswer()
     {
     nextQuestion();
     }
+    else{
+        endGame();
+    }
 }
-
+//function to end tha game when end game button is clicked
 function endGame()
 {
     result.textContent = "Thanks for playing!";
     scoreTable.textContent = "You final score: " + score + "/" + attempts; 
 }
 
+//function to start over when start over button is clicked
 function startOver()
 {
     result.textContent = "Let's get started!";

@@ -5,6 +5,9 @@ body{
     width: 500px;
     height: 300px;
     border: 3px black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1,h2,p{
@@ -12,10 +15,10 @@ h1,h2,p{
 }
 
 .gameDiv{
-    display: flexbox;
-    align-items: center;
-    justify-content: center;
-    padding: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid green; 
 }
 
 .button{
@@ -27,5 +30,18 @@ h1,h2,p{
     cursor: pointer;
     width: 100px;
     height: 100px;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+.buttonDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button2{
+    margin-left: auto;
+    margin-right: auto;
+}
 
