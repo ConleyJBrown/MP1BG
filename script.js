@@ -31,7 +31,7 @@ countryNames = [
     "Saudi Arabia","Scotland","Senegal","Serbia","Seychelles", "Sierra Leone",
     "Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa",
     "South Korea", "South Sudan","Spain","Sri Lanka","Sudan","Suriname",
-    "Swaziland", "Sweden","Swittzerland","Syria","Taiwan","Tajikistan",
+    "Swaziland", "Sweden","Switzerland","Syria","Taiwan","Tajikistan",
     "Tanzania","Thailand","The Gambia","Togo","Tonga","Trinidad and Tobago",
     "Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine",
     "United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
@@ -62,11 +62,13 @@ let scoreTable = document.getElementById("yourScore");
 let score = 0;
 let attempts = 0;
 let randomCountry;
+
+//load the first question when window loads
 window.onload = nextQuestion();
 
 function nextQuestion()
 {
-    randomCountry = countries[Math.floor(Math.random()*countries.length)];
+    randomCountry = countries.splice(Math.floor(Math.random()*countries.length), 1)[0];
     console.log(randomCountry);
     let image = document.getElementsByClassName("flagImage")[0];
     image.src = randomCountry.imageSource;
@@ -74,7 +76,9 @@ function nextQuestion()
     let correctAnswer = Math.floor(Math.random()*4+1);
     console.log(correctAnswer);
 
-    let possibleAnswers = countryNames;
+    let possibleAnswers = [...countryNames];
+    console.log("Next question and the length of possible answers is " + possibleAnswers.length);
+    console.log("Next question and the length of countryNames is " + countryNames.length);
     for( let i = 0; i < possibleAnswers.length; i++){ 
     
         if ( possibleAnswers[i] === randomCountry.name) { 
@@ -88,6 +92,8 @@ function nextQuestion()
     for(let i = 1; i <=4;  i++)
     {
         let button = document.getElementById("button"+i);
+        button.removeEventListener("click", handleCorrectAnswer);
+        button.removeEventListener("click", handleIncorrectAnswer);
         if(i === correctAnswer)
         {
             button.textContent = randomCountry.name;
@@ -97,12 +103,16 @@ function nextQuestion()
         }
         else
         {
-            let wrongAnswerIndex = Math.floor(Math.random()*countries.length);
+            let wrongAnswerIndex = Math.floor(Math.random()*possibleAnswers.length);
+            console.log("the country with index " + wrongAnswerIndex + " has been assigned to button as a potential incorrect response");
+            console.log(possibleAnswers[wrongAnswerIndex]);
             button.textContent = possibleAnswers[wrongAnswerIndex];
             console.log(possibleAnswers.splice(wrongAnswerIndex,1) + " has been removed and placed on button " + i) ;
             button.addEventListener("click", handleIncorrectAnswer);
             console.log("button " + i + " is listening for incorrect response");
         }
+        console.log(countries.length);
+        console.log(possibleAnswers.length)
     }
 }
 
@@ -117,19 +127,23 @@ function nextQuestion()
 
 function handleCorrectAnswer()
 {
-    //alert("Correct!");
     result.textContent = "Correct! Great Job!";
     score++;
     attempts++;
     scoreTable.textContent = "Your Score: " + score + "/" + attempts;
-    setTimeout(nextQuestion, 1000);
+    if(attempts < 204)
+    {
+    nextQuestion();
+    }
 }
 
 function handleIncorrectAnswer()
 {
-    //alert("Incorrect!");
     result.textContent = "Incorrect. That was the flag of " + randomCountry.name + ".";
     attempts++;
     scoreTable.textContent = "Your Score: " + score + "/" + attempts;
-    setTimeout(nextQuestion, 1000);
+    if (attempts < 204)
+    {
+    nextQuestion();
+    }
 }
